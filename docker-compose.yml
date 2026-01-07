@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - DB_NAME=kasir_db
+      - DB_USER=kasir
+      - DB_PASS=rahasia123
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=kasir_db
+      - POSTGRES_USER=kasir
+      - POSTGRES_PASSWORD=rahasia123
+    volumes:
+      - pg_data_kasir:/var/lib/postgresql/data
+
+volumes:
+  pg_data_kasir:
